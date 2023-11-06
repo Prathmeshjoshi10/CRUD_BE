@@ -6,8 +6,9 @@
   "scripts": {
     "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "mkdir -p build && cp -R ./* ./build && mv build/* . && rm -rf build"
+    "build": "npm run prebuild && mkdir -p build && cp -r !(build) build && rm -rf build/.git"
   },
+  "prebuild": "npm install",
   "keywords": [],
   "author": "",
   "license": "ISC",
