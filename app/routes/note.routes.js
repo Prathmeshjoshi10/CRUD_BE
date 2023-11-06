@@ -8,5 +8,5 @@ module.exports = (app) => {
   router.delete("/delete/:id", notes.delete);
   router.patch("/edit/:id", notes.edit);
   router.get("/getAll/:userId", notes.getAll);
-  router.get("/search/:searchText", notes.search);
+  router.get("/search/:userId/:searchText", notes.search);
 };

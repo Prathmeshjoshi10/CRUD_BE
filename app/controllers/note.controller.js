@@ -13,11 +13,13 @@ exports.create = async (req, res) => {
     res.status(400).send({
       error: error.message,
     });
+    console.log("Error:::", error);
   }
 };
 
 exports.delete = async (req, res) => {
   try {
+
     const id = req.params.id;
 
     const deleted = await Note.findByIdAndDelete(id);
@@ -65,8 +67,11 @@ exports.getAll = async (req, res) => {
 exports.search = async (req, res) => {
   try {
     const searchText = req.params.searchText;
+    const userId = req.params.userId;
 
-    const result = await Note.find({ $text: { $search: searchText } });
+    const result = await Note.find({
+      $and: [{ $text: { $search: searchText } }, { userId: userId }],
+    });
 
     res.status(200).json({ success: true, result: result });
   } catch (error) {
