@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npm run prebuild && mkdir -p build && cp -r !(build) build && rm -rf build/.git"
+    "build": "npm install && mkdir -p build && cp -r * build/ && mv build/* . && rm -rf build"
   },
   "prebuild": "npm install",
   "keywords": [],
