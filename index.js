@@ -1,4 +1,4 @@
-const express = require("express");
+koconst express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 
@@ -45,3 +45,64 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Timer</title>
+</head>
+<body>
+    <div>
+        <span id="timer">00:00</span>
+    </div>
+    <button id="startButton">Start</button>
+    <button id="pauseButton">Pause</button>
+    <button id="resumeButton">Resume</button>
+
+    <script>
+        let timer;
+        let timerRunning = false;
+        let timeInSeconds = 0;
+
+        const timerDisplay = document.getElementById("timer");
+        const startButton = document.getElementById("startButton");
+        const pauseButton = document.getElementById("pauseButton");
+        const resumeButton = document.getElementById("resumeButton");
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeInSeconds / 60);
+            const seconds = timeInSeconds % 60;
+            const formattedTime = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            timerDisplay.textContent = formattedTime;
+        }
+
+        function startTimer() {
+            if (!timerRunning) {
+                timer = setInterval(function () {
+                    timeInSeconds++;
+                    updateTimerDisplay();
+                }, 1000);
+                timerRunning = true;
+            }
+        }
+
+        function pauseTimer() {
+            if (timerRunning) {
+                clearInterval(timer);
+                timerRunning = false;
+            }
+        }
+
+        function resumeTimer() {
+            if (!timerRunning) {
+                startTimer();
+            }
+        }
+
+        startButton.addEventListener("click", startTimer);
+        pauseButton.addEventListener("click", pauseTimer);
+        resumeButton.addEventListener("click", resumeTimer);
+    </script>
+</body>
+</html>
